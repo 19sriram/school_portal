@@ -1,0 +1,13 @@
+.site-card-border-less-wrapper {
+    padding: 30px;
+    background: #ececec;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #logo-style {
+    width: 10vw;
+  }
