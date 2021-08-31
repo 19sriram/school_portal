@@ -5,23 +5,15 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import SiderDemo from "../layout/Layout";
+import { LoginComponent } from "../login/Login";
 
 
-export default function RouterComponent() {
+export const RouterComponent=()=> {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-        </ul>
+        
 
         <hr />
 
@@ -33,7 +25,10 @@ export default function RouterComponent() {
           of them to render at a time
         */}
         <Switch>
-          <Route exact path="/">
+        <Route exact path="/">
+            <LoginComponent />
+          </Route>
+          <Route exact path="/home">
             <Home />
           </Route>
           <Route path="/about">
@@ -41,6 +36,9 @@ export default function RouterComponent() {
           </Route>
           <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/sider">
+            <SiderDemo />
           </Route>
         </Switch>
       </div>

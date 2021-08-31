@@ -1,5 +1,6 @@
 import { Form, Input, Button, Checkbox ,Card, Modal } from 'antd';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import axios from '../common/axios';
 import { ForgotPwdComponent } from './Forgotpwd';
@@ -7,13 +8,18 @@ import './Login.css';
 export const LoginComponent = ()=>{
 
     const [isModalVis, setIsModalVis] = useState(false);
+    let history = useHistory();
 
     const onFinish = (values) => {
-        console.log('Success:', values);
         axios.post('user/login',{
-        "email":"19sriram@gmail.com",
-        "password":"test@123"
-        }).then((response:any)=>console.log(response));
+        "username":"99044234234",
+        "password":"Admin@123"
+        }).then((response:any)=>{
+            if(response.status = 200) {
+                localStorage.setItem('accessToken',response.accessToken);
+                history.push('/sider');
+            }
+        });
       };
     
       const onFinishFailed = (errorInfo) => {
