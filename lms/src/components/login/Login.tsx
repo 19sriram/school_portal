@@ -18,7 +18,7 @@ export const LoginComponent = () => {
     let { status, result, accessToken } = response;
     if (result === "Success" && status == 200) {
       localStorage.setItem("accessToken", accessToken);
-     history.push('/sider');
+     history.push('/mainPage');
     } else {
       let errorMsg = response.message;
       message.error(errorMsg);

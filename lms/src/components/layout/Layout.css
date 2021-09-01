@@ -1,0 +1,16 @@
+.logo {
+    display: flex;
+    float: left;
+}
+
+.layoutOptions {
+    float: right;
+    cursor: pointer;
+    width: 2em;
+    font-size: 1.5em;
+    color: red;
+}
+
+.contentSpace {
+    margin: 10px 16px;
+}

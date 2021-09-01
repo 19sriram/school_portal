@@ -12,9 +12,6 @@ export const RouterComponent=()=> {
   return (
     <BrowserRouter>
       <div>
-        
-
-        <hr />
 
         {/*
           A <Switch> looks through all its children <Route>
@@ -36,7 +33,7 @@ export const RouterComponent=()=> {
           <Route path="/dashboard">
             <Dashboard />
           </Route>
-          <Route path="/sider">
+          <Route path="/mainPage">
             <SiderDemo />
           </Route>
         </Switch>

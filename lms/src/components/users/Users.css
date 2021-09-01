@@ -1,0 +1,9 @@
+.usersOptions {
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+.addUsersBtnStyle {
+    margin-bottom: 16px;
+    margin-right: 1em;
+}

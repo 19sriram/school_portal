@@ -5,19 +5,27 @@ import {
   DesktopOutlined,
   UserOutlined,
   CarryOutOutlined,
-  AreaChartOutlined 
+  AreaChartOutlined, 
+  LogoutOutlined
 } from "@ant-design/icons";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
 import FooterComponent from "../common/footer";
 import  UsersComponent  from "../users/Users";
 import RolesComponent from "../roles/Roles";
 import LeadsComponent from "../leads/Leads";
 import DashboardComponent from "../dashboard/Dashboard";
 
+import './Layout.css';
 
 const { Header, Content, Footer, Sider } = Layout;
+
 const SiderDemo = () => {
+  const history = useHistory();
+  const Logout = ()=>{
+    localStorage.clear();
+    history.push('/')
+  }
   const [collapsed, setCollapsed] = useState(false);
   const onCollapse = () => setCollapsed(!collapsed);
   return (
@@ -26,10 +34,7 @@ const SiderDemo = () => {
         <Layout style={{ minHeight: "100vh" }}>
        
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-             <Header>
-      <div className="logo" />
-      asdas
-    </Header>
+            
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={["4"]} mode="inline">
             <Menu.Item key="4" icon={<AreaChartOutlined />}>
@@ -64,8 +69,19 @@ const SiderDemo = () => {
             </Menu>
           </Sider>
           <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: 0 }} />
-            <Content style={{ margin: "0 16px" }}>
+            
+          <Header>
+      <div className="logo" >
+      <img style={{width: '7em'}} src="https://media.wired.com/photos/5926ffe47034dc5f91bed4e8/master/pass/google-logo.jpg"/>
+      </div>
+      <div className='layoutOptions'>
+     
+      <LogoutOutlined onClick={()=>Logout()}/>
+      </div>
+      <div >
+      </div>
+    </Header>
+            <Content className="contentSpace">
             <Switch>
             <Route path="/users">
             <UsersComponent/>

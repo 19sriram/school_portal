@@ -1,10 +1,17 @@
+import { PageHeader } from 'antd';
 import './Dashboard.css';
 
 const DashboardComponent = ()=>{
     return (
-        <div>
-          <p>testtest-testtest-testtest-testtest-testtest-testtest</p>
-        </div>
+      <>
+        <PageHeader
+    className="site-page-header"
+    
+    title="Dashboard"
+    subTitle="This page is under construction"
+  />
+      </>
+       
     )
 }
 
