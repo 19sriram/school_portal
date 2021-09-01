@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  BrowserRouter
 } from "react-router-dom";
 import SiderDemo from "../layout/Layout";
 import { LoginComponent } from "../login/Login";
@@ -11,7 +12,7 @@ import { LoginComponent } from "../login/Login";
 
 export const RouterComponent=()=> {
   return (
-    <Router>
+    <BrowserRouter>
       <div>
         
 
@@ -42,7 +43,7 @@ export const RouterComponent=()=> {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 }
 
