@@ -3,12 +3,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   BrowserRouter
 } from "react-router-dom";
 import SiderDemo from "../layout/Layout";
 import { LoginComponent } from "../login/Login";
-
 
 export const RouterComponent=()=> {
   return (
