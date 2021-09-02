@@ -53,8 +53,8 @@ export const ForgotPwdComponent = (props: any) => {
     const { status, result } = response;
     if (result === "Success" && status == 200) {
       message.success("Code match successful");
-      setShowVerifyUser(false);
-      setShowVerifyCode(true);
+      setShowVerifyCode(false);
+      setShowNewPassword(true);
     } else {
       let errorMsg = response.message;
       message.error(errorMsg);

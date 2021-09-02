@@ -34,7 +34,7 @@ export async function _verifyUserCode(email: any, userInfo: any) {
    try {
      const response = await axios.post("user/verifycode",{
        "email": email,
-       "code": userInfo
+       "code": parseInt(userInfo)
      });
     return response.data;
    } catch (error) {
