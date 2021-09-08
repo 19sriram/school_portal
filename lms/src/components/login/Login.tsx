@@ -1,6 +1,7 @@
 import { Form, Input, Button, Checkbox, Card, Modal, message } from "antd";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { jwtDecoder } from "../common/axios";
 import { _loginHandler } from "./api";
 import { ForgotPwdComponent } from "./Forgotpwd";
 import "./Login.css";
@@ -18,6 +19,7 @@ export const LoginComponent = () => {
     let { status, result, accessToken } = response;
     if (result === "Success" && status == 200) {
       localStorage.setItem("accessToken", accessToken);
+      jwtDecoder(localStorage.getItem('accessToken'));
      history.push('/mainPage');
     } else {
       let errorMsg = response.message;

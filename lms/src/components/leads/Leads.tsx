@@ -101,7 +101,7 @@ const LeadsComponent = () => {
       <PageHeader
         className="site-page-header"
         title="Leads"
-        subTitle="Manage leads  in this page"
+        subTitle="Manage leads in this page"
       />
       <div className="usersOptions">
         <Button

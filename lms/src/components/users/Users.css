@@ -7,3 +7,17 @@
     margin-bottom: 16px;
     margin-right: 1em;
 }
+
+.drawerInfo label{
+    display: block;
+}
+.drawerGroupedBtns {
+    margin-top: 1em;
+}
+.drawerGroupedBtns button {
+    margin-right: 0.2em;
+}
+
+.userDrawer .ant-drawer-content-wrapper {
+    width: 30% !important;
+}
