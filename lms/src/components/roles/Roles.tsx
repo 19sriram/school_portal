@@ -1,97 +1,125 @@
-import { Table, Input, PageHeader } from "antd";
-import { Drawer, Button } from "antd";
-import { useState } from "react";
-
+import {
+  Table,
+  Input,
+  PageHeader,
+  Modal,
+  Spin,
+  Form,
+  Select,
+  message,
+  Button
+} from "antd";
+import {_getRoles, _handleRoleAddition} from './api';
+import { useEffect, useState } from "react";
+import { getDecodedToken } from "../common/axios";
 import "./Roles.css";
 
 const { Search } = Input;
 
 const RolesComponent = () => {
-  const [visible, setVisible] = useState(false);
-  const showDrawer = () => {
-    setVisible(true);
+  const [allRoles, setAllRoles] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [waiting, setWaiting] = useState(false);
+  const { Option } = Select;
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    try {
+      _getRoles().then((response) => {
+        
+        setAllRoles(response.data);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, []);
+
+
+  const defaultGetRoles= ()=>{
+    try {
+      _getRoles().then((response) => {
+        
+        setAllRoles(response.data);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  const onNewRole = (values:any)=>{
+    let adminValue:any = getDecodedToken();
+    let userInfo = {
+      'role': values.role,
+      'reportingTo': values.reportingTo,
+      'createdById': adminValue.id,
+      'createdByName': adminValue.firstname,
+      'createdByRole': adminValue.role,
+      'description': values.description
+    };
+      
+    try {
+      _handleRoleAddition(userInfo).then((response) => {
+        if (response.result === "Success" && response.status == 200) {
+          message.success(response.message);
+        } else {
+          message.error(response.message);
+        }
+        defaultGetRoles();
+        setIsModalVisible(false);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    
+  }
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    form.resetFields();
+
   };
-  const onClose = () => {
-    setVisible(false);
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    form.resetFields();
+
   };
+
+  const handleNewRoleAddition = async () => {
+    try {
+      _getRoles().then((response) => {
+        if (response.result === "Success" && response.status == 200) {
+          setAllRoles(response.data);
+          form.resetFields();
+        }
+        setIsModalVisible(true);
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+
   const columns = [
     {
-      title: "First Name",
-      dataIndex: "name",
-      render: () => <a onClick={showDrawer}>1</a>,
+      title: "Role",
+      dataIndex: "role",
+      render: (value, row, index) => (
+        <a key={index}>
+          {value}
+        </a>
+      ),    },
+    {
+      title: "Reporting to",
+      dataIndex: "reportingTo",
     },
     {
-      title: "Last Name",
-      dataIndex: "chinese",
-      sorter: {
-        compare: (a, b) => a.chinese - b.chinese,
-        multiple: 3,
-      },
+      title: "Description",
+      dataIndex: "description",
     },
-    {
-      title: "Assigned Role",
-      dataIndex: "math",
-      sorter: {
-        compare: (a, b) => a.math - b.math,
-        multiple: 2,
-      },
-    },
-    {
-      title: "Phone Number",
-      dataIndex: "english",
-      sorter: {
-        compare: (a, b) => a.english - b.english,
-        multiple: 1,
-      },
-    },
-    {
-      title: "Active Status",
-      dataIndex: "math",
-      sorter: {
-        compare: (a, b) => a.math - b.math,
-        multiple: 2,
-      },
-    },
-    {
-      title: "Actions",
-      dataIndex: "math",
-      sorter: {
-        compare: (a, b) => a.math - b.math,
-        multiple: 2,
-      },
-    },
+    
   ];
 
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      chinese: 98,
-      math: 60,
-      english: 70,
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      chinese: 98,
-      math: 66,
-      english: 89,
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      chinese: 98,
-      math: 90,
-      english: 70,
-    },
-    {
-      key: "4",
-      name: "Jim Red",
-      chinese: 88,
-      math: 99,
-      english: 89,
-    },
-  ];
   function onChange(pagination, filters, sorter, extra) {
     console.log("params", pagination, filters, sorter, extra);
   }
@@ -101,36 +129,84 @@ const RolesComponent = () => {
       <PageHeader
         className="site-page-header"
         title="Roles"
-        subTitle="Manage roles and access for roles in this page"
+        subTitle="Manage roles status in this page"
       />
       <div className="usersOptions">
         <Button
-          onClick={() => null}
+          onClick={handleNewRoleAddition}
           type="primary"
-          className='addUsersBtnStyle'
+          className="addUsersBtnStyle"
         >
           Add Roles
         </Button>
 
-        <Search
-          placeholder="input search text"
-          onSearch={() => console.log(1)}
-          style={{ width: 200 }}
-        />
+
       </div>
+
+      <Table columns={columns} dataSource={allRoles} onChange={onChange}/>
       
-      <Table columns={columns} dataSource={data} onChange={onChange} />
-      <Drawer
-        title="Basic Drawer"
-        placement="right"
-        closable={false}
-        onClose={onClose}
-        visible={visible}
+      <Modal
+        title="Add new role"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
+        {waiting && (
+          <div style={{ textAlign: "center" }}>
+            {" "}
+            <Spin />{" "}
+          </div>
+        )}
+
+        {
+          <Form
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            initialValues={{ remember: true }}
+            onFinish={onNewRole}
+            autoComplete="off"
+            form={form}
+          >
+
+            <Form.Item
+              label="Enter Rolename"
+              name="role"
+              rules={[
+                { required: true, message: "Please input your role!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="Reporting to" name="reportingTo">
+              <Select>
+                {allRoles &&
+                  allRoles.map((item: any) => {
+                    return <Option value={item.role}>{item.role}</Option>;
+                  })}
+              </Select>
+            </Form.Item>
+
+            <Form.Item
+              label="Enter description"
+              name="description"
+              rules={[
+                { required: true, message: "Please input your description!" },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
+        }
+      </Modal>
     </>
   );
 };
