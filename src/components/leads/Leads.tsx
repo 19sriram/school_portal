@@ -6,60 +6,14 @@ import "./Leads.css";
 
 const { Search } = Input;
 
-const LeadsComponent = () => {
-  const [visible, setVisible] = useState(false);
-  const showDrawer = () => {
-    setVisible(true);
-  };
-  const onClose = () => {
-    setVisible(false);
-  };
+const UploadsComponent = () => {
+
+
   const columns = [
     {
       title: "First Name",
       dataIndex: "name",
-      render: () => <a onClick={showDrawer}>1</a>,
-    },
-    {
-      title: "Last Name",
-      dataIndex: "chinese",
-      sorter: {
-        compare: (a, b) => a.chinese - b.chinese,
-        multiple: 3,
-      },
-    },
-    {
-      title: "Assigned Role",
-      dataIndex: "math",
-      sorter: {
-        compare: (a, b) => a.math - b.math,
-        multiple: 2,
-      },
-    },
-    {
-      title: "Phone Number",
-      dataIndex: "english",
-      sorter: {
-        compare: (a, b) => a.english - b.english,
-        multiple: 1,
-      },
-    },
-    {
-      title: "Active Status",
-      dataIndex: "math",
-      sorter: {
-        compare: (a, b) => a.math - b.math,
-        multiple: 2,
-      },
-    },
-    {
-      title: "Actions",
-      dataIndex: "math",
-      sorter: {
-        compare: (a, b) => a.math - b.math,
-        multiple: 2,
-      },
-    },
+    }
   ];
 
   const data = [
@@ -100,39 +54,15 @@ const LeadsComponent = () => {
     <>
       <PageHeader
         className="site-page-header"
-        title="Leads"
-        subTitle="Manage leads in this page"
+        title="Uploads"
+        subTitle="Manage uploads from students in this page"
       />
-      <div className="usersOptions">
-        <Button
-          onClick={() => null}
-          type="primary"
-          className='addUsersBtnStyle'
-        >
-          Add Leads
-        </Button>
 
-        <Search
-          placeholder="input search text"
-          onSearch={() => console.log(1)}
-          style={{ width: 200 }}
-        />
-      </div>
       
       <Table columns={columns} dataSource={data} onChange={onChange} />
-      <Drawer
-        title="Basic Drawer"
-        placement="right"
-        closable={false}
-        onClose={onClose}
-        visible={visible}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
+      
     </>
   );
 };
 
-export default LeadsComponent;
+export default UploadsComponent;

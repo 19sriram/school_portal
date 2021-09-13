@@ -11,10 +11,8 @@ import {
 
 import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
 import FooterComponent from "../common/footer";
-import  UsersComponent  from "../users/Users";
-import RolesComponent from "../roles/Roles";
+
 import LeadsComponent from "../leads/Leads";
-import DashboardComponent from "../dashboard/Dashboard";
 
 import './Layout.css';
 
@@ -36,32 +34,11 @@ const SiderDemo = () => {
           <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
             
             <div className="logo" />
-            <Menu theme="dark" defaultSelectedKeys={["4"]} mode="inline">
-            <Menu.Item key="4" icon={<AreaChartOutlined />}>
-              <Link to="/dashboard">
-                <span>
-                  Dashboard
-                </span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="1" icon={<UserOutlined />} >
-              <Link to="/users">
-                <span>
-                  Users
-                </span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="2" icon={<DesktopOutlined />}>
-              <Link to="/roles">
-                <span>
-                  Roles
-                </span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="3" icon={<CarryOutOutlined />}>
+            <Menu theme="dark" defaultSelectedKeys={["0"]} mode="inline">
+              <Menu.Item key="0" icon={<CarryOutOutlined />}>
               <Link to="/leads">
                 <span>
-                  Leads
+                  Uploads
                 </span>
                 </Link>
               </Menu.Item>
@@ -83,17 +60,12 @@ const SiderDemo = () => {
     </Header>
             <Content className="contentSpace">
             <Switch>
-            <Route path="/users">
-            <UsersComponent/>
-            </Route>
-            <Route path="/roles">
-            <RolesComponent/>
-            </Route>
-            <Route path="/leads">
+           
+            <Route path="/">
             <LeadsComponent/>
             </Route>
             <Route path="/">
-            <DashboardComponent/>
+            <LeadsComponent/>
             </Route>
           </Switch>
             </Content>
